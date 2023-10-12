@@ -5,6 +5,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float damage;
     private Transform _player;
+    static public bool _enabled = false;
 
     public void Init(Transform player)
     {
@@ -23,7 +24,7 @@ public class EnemyController : MonoBehaviour
     {
         if (_player == null) return;
 
-        if(GameLogic.IsFreezeTime == false)
+        if(GameLogic.IsFreezeTime == false || _enabled)
         {
             Move();
         }

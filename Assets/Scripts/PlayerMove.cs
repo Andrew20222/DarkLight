@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     private Vector3 _screenBounds;
+    static public bool _enabled = false;
     private void Awake()
     {
         _screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width,
@@ -11,7 +12,7 @@ public class PlayerMove : MonoBehaviour
     }
     private void Update()
     {
-        if (GameLogic.IsFreezeTime  == false)
+        if (GameLogic.IsFreezeTime  == false || _enabled)
         {
             Move();
             Check();

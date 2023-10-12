@@ -1,34 +1,47 @@
+using Michsky.MUIP;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
 public class UIMenu : MonoBehaviour
 {
-    [SerializeField] private Button playButton;
-    [SerializeField] private Button settingButton;
-    [SerializeField] private Button quitButton;
-    [SerializeField] private CanvasGroup menuScreen;
-    [SerializeField] private CanvasGroup settingScreen;
+    [SerializeField] private ButtonManager playButton;
+    [SerializeField] private ButtonManager settingButton;
+    [SerializeField] private ButtonManager tutorialButton;
+    [SerializeField] private ButtonManager quitButton;
+    [SerializeField] private GameObject menuScreen;
+    [SerializeField] private GameObject settingScreen;
 
-    private void OnEnable()
+    public void OnEnable()
     {
         playButton.onClick.AddListener(Play);
         settingButton.onClick.AddListener(Setting);
         quitButton.onClick.AddListener(Quit);
+        tutorialButton.onClick.AddListener(Tutorial);
+
     }
 
-    private void Play()
+    public void Play()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    private void Setting()
+    public void Setting()
     {
-        menuScreen.alpha = 0;
-        settingScreen.alpha = 1;
+        menuScreen.SetActive(false);
+        
+        settingScreen.SetActive(true);
+        
     }
 
-    private void Quit()
+
+    public void Tutorial()
+    {
+        SceneManager.LoadScene(5);
+    }
+    public void Quit()
     {
         Application.Quit();
     }

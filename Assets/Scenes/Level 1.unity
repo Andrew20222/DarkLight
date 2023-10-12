@@ -834,6 +834,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level
       objectReference: {fileID: 0}
+    - target: {fileID: 2527439466147079803, guid: 0fda89fb1e9c8d34bb12451d32a8faa3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.969136
+      objectReference: {fileID: 0}
+    - target: {fileID: 2527439466147079803, guid: 0fda89fb1e9c8d34bb12451d32a8faa3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.6288626
+      objectReference: {fileID: 0}
     - target: {fileID: 2527439466458575949, guid: 0fda89fb1e9c8d34bb12451d32a8faa3, type: 3}
       propertyPath: waitTime
       value: 1000

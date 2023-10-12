@@ -145,12 +145,12 @@ namespace Michsky.MUIP
 
         public void UpdateUI()
         {
-            if (autoFitContent == false) 
+            if (autoFitContent == false)
             {
                 if (mainFitter != null) { mainFitter.enabled = false; }
                 if (mainLayout != null) { mainLayout.enabled = false; }
-                if (targetFitter != null) 
-                { 
+                if (targetFitter != null)
+                {
                     targetFitter.enabled = false;
 
                     if (targetRect != null)
@@ -248,9 +248,9 @@ namespace Michsky.MUIP
 
         public void SetText(string text) { buttonText = text; UpdateUI(); }
         public void SetIcon(Sprite icon) { buttonIcon = icon; UpdateUI(); }
-        
-        public void Interactable(bool value) 
-        { 
+
+        public void Interactable(bool value)
+        {
             isInteractable = value;
 
             if (gameObject.activeInHierarchy == false) { return; }
@@ -318,8 +318,11 @@ namespace Michsky.MUIP
             }
 
             waitingForDoubleClickInput = true;
-            StopCoroutine("CheckForDoubleClick");
-            StartCoroutine("CheckForDoubleClick");
+            
+                StopCoroutine("CheckForDoubleClick");
+                StartCoroutine("CheckForDoubleClick");
+
+            
         }
 
         public void OnPointerDown(PointerEventData eventData)
