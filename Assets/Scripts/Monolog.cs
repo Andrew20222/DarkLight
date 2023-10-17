@@ -40,7 +40,11 @@ public class Monolog : MonoBehaviour
     }
     private void Update()
     {
+        EndTutorial();
+    }
 
+    private void EndTutorial()
+    {
         if (!player.activeSelf)
         {
             textMonolog.text = "You lost try again. Click on the red button";
@@ -52,6 +56,7 @@ public class Monolog : MonoBehaviour
             SceneManager.LoadScene(0);
         }
     }
+
     public void NextText()
     {
         if (PlayerMove._enabled == true)

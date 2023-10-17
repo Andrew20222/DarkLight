@@ -11,6 +11,7 @@ public class UIMenu : MonoBehaviour
     [SerializeField] private ButtonManager settingButton;
     [SerializeField] private ButtonManager tutorialButton;
     [SerializeField] private ButtonManager quitButton;
+    [SerializeField] private ButtonManager homeButton;
     [SerializeField] private GameObject menuScreen;
     [SerializeField] private GameObject settingScreen;
 
@@ -20,9 +21,14 @@ public class UIMenu : MonoBehaviour
         settingButton.onClick.AddListener(Setting);
         quitButton.onClick.AddListener(Quit);
         tutorialButton.onClick.AddListener(Tutorial);
-
+        homeButton.onClick.AddListener(Home);
     }
 
+    public void Home()
+    {
+        menuScreen.SetActive(true);
+        settingScreen.SetActive(false);
+    }
     public void Play()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
