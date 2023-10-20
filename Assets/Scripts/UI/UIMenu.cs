@@ -12,8 +12,8 @@ public class UIMenu : MonoBehaviour
     [SerializeField] private ButtonManager tutorialButton;
     [SerializeField] private ButtonManager quitButton;
     [SerializeField] private ButtonManager homeButton;
-    [SerializeField] private GameObject menuScreen;
-    [SerializeField] private GameObject settingScreen;
+    [SerializeField] private CanvasGroup menuScreen;
+    [SerializeField] private CanvasGroup settingScreen;
 
     public void OnEnable()
     {
@@ -26,8 +26,13 @@ public class UIMenu : MonoBehaviour
 
     public void Home()
     {
-        menuScreen.SetActive(true);
-        settingScreen.SetActive(false);
+        SetPanel(menuScreen, true, 1);
+        SetPanel(settingScreen, false, 0);
+    }
+
+    private void Start()
+    {
+        SetPanel(menuScreen, true, 1);
     }
     public void Play()
     {
@@ -36,9 +41,9 @@ public class UIMenu : MonoBehaviour
 
     public void Setting()
     {
-        menuScreen.SetActive(false);
-        
-        settingScreen.SetActive(true);
+        SetPanel(menuScreen, false, 0);
+
+        SetPanel(settingScreen, true, 1);
         
     }
 
@@ -50,6 +55,14 @@ public class UIMenu : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    private void SetPanel(CanvasGroup canvasGroup, bool value, int alpha)
+    {
+        canvasGroup.alpha = alpha;
+        canvasGroup.blocksRaycasts = value;
+        canvasGroup.interactable = value;
+            
     }
 
     private void OnDisable()

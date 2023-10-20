@@ -6,7 +6,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float damage;
     private Transform _player;
     static public bool _enabled = false;
-
     public void Init(Transform player)
     {
         _player = player;
@@ -23,11 +22,8 @@ public class EnemyController : MonoBehaviour
     private void Update()
     {
         if (_player == null) return;
-
-        if(GameLogic.IsFreezeTime == false || _enabled)
-        {
+        if(_enabled)
             Move();
-        }
     }
 
     private void Move()

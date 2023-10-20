@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
 using Scripts.Healths;
-
+using TMPro;
 using UnityEngine;
-
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameLogic : MonoBehaviour
 {
@@ -13,44 +11,44 @@ public class GameLogic : MonoBehaviour
 
     [SerializeField] private Detection detection;
     [SerializeField] private EnemyFactory enemyFactory;
-    [SerializeField] private Health player;
-    [SerializeField] private Text textFreezeTime;
+    [SerializeField] private PlayerMove playerMove;
+    [SerializeField] private Health playerHealth;
+    [SerializeField] private TextMeshProUGUI textFreezeTime;
     [SerializeField] private float countSpawnEnemy;
 
-    public static bool IsFreezeTime = true;
+    public bool IsFreezeTime = true;
     private void OnEnable()
     {
         detection.OnChange += GameWin;
-        player.OnDie += GameLose;
+        playerHealth.OnDie += GameLose;
     }
     private void OnDisable()
     {
         detection.OnChange -= GameWin;
-        player.OnDie -= GameLose;
+        playerHealth.OnDie -= GameLose;
     }
 
 
     private void Start()
     {
+        playerMove.UpdateFreezeTime(IsFreezeTime);
+
         if (IsFreezeTime)
         {
             StartCoroutine(FreezeTime());
         }
+
         StartCoroutine(SpawnEnemy(countSpawnEnemy));
     }
 
-    private void Update()
-    {
-
-        
-    }
     private IEnumerator SpawnEnemy(float amountEnemy)
     {
-        for (int i = 0; i < amountEnemy; i++)
+        for (int i = 0; i < amountEnemy + 2; i++)
         {
             yield return new WaitForSeconds(1f);
+            if (IsFreezeTime) continue;
             var enemy = enemyFactory.GetNewInstance();
-            enemy.Init(player.transform);
+            enemy.Init(playerHealth.transform);
         }
 
     }
@@ -67,17 +65,17 @@ public class GameLogic : MonoBehaviour
 
     private IEnumerator FreezeTime()
     {
+        for (int i = 3; i > 0; i--)
+        {
+            textFreezeTime.text = i.ToString();
+            yield return new WaitForSeconds(1);
+        }
 
-        yield return new WaitForSeconds(0.5f);
-        textFreezeTime.text = 3.ToString();
-        yield return new WaitForSeconds(1);
-        textFreezeTime.text = 2.ToString();
-        yield return new WaitForSeconds(1);
-        textFreezeTime.text = 1.ToString();
-        yield return new WaitForSeconds(1);
         textFreezeTime.enabled = false;
         IsFreezeTime = false;
-
+        EnemyController._enabled = true;
+        playerMove.UpdateFreezeTime(IsFreezeTime);
+        
     }
 
     private IEnumerator SceneReloader()

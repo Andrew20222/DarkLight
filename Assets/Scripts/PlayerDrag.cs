@@ -5,11 +5,14 @@ using UnityEngine;
 public class PlayerDrag : MonoBehaviour
 {
     static public bool _enabled = false;
-    public void Drag()
+    [SerializeField] private PlayerMove playerMove;
+
+
+    private void OnMouseDown()
     {
         if (_enabled)
         {
-            PlayerMove._enabled = true;
+            playerMove.UpdateFreezeTime(false);
         }
     }
 }

@@ -1,22 +1,20 @@
 using Michsky.MUIP;
 using System.Collections;
-
 using Unity.VisualScripting;
 using UnityEngine;
-
+using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Monolog : MonoBehaviour
 {
     [SerializeField] private GameObject[] ActionsOnStage = new GameObject[3];
-    [SerializeField] private Text textMonolog;
+    [SerializeField] private TextMeshProUGUI textMonolog;
     [SerializeField] private ButtonManager NextTextButton;
-    [SerializeField] private GameObject ButtonDragPlayer;
     [SerializeField] private EnemyController enemyController;
+    [SerializeField] private PlayerMove playerMove;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject light2D;
-    [SerializeField] private GameObject darkSquare;
     
 
     private string[] texts = {
@@ -33,10 +31,11 @@ public class Monolog : MonoBehaviour
 
         enemyController.Init(player.transform);
         EnemyController._enabled = false;
-        PlayerMove._enabled = false;
+        playerMove.UpdateFreezeTime(true);
         WaitTimeStart();
-        textMonolog.text = texts[0];
-
+        ChangesInMonolog();
+        n++;
+        
     }
     private void Update()
     {
@@ -48,7 +47,6 @@ public class Monolog : MonoBehaviour
         if (!player.activeSelf)
         {
             textMonolog.text = "You lost try again. Click on the red button";
-            darkSquare.SetActive(false);
         }
         if (Detection.IsDetection)
         {
@@ -59,12 +57,7 @@ public class Monolog : MonoBehaviour
 
     public void NextText()
     {
-        if (PlayerMove._enabled == true)
-            ButtonDragPlayer.SetActive(false);
-
-
-
-        if (n == 3 && PlayerMove._enabled)
+        if (n == 3 && playerMove.IsFreeze == false)
         {
 
             ChangesInMonolog();
@@ -74,7 +67,6 @@ public class Monolog : MonoBehaviour
         {
             ChangesInMonolog();
             light2D.SetActive(true);
-            darkSquare.SetActive(true);
             n++;
         }
         else if (n < 3 || n > 4)
